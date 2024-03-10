@@ -8,7 +8,7 @@ from typing import Optional, List
 
 
 class TwoVariables:
-    def __init__(self, var1: int, var2: int):
+    def __init__(self, var1: int, var2: int) -> None:
         self._var1 = var1
         self._var2 = var2
 
@@ -50,7 +50,7 @@ print('-------------------------------------------------')
 
 
 class DecimalCounter:
-    def __init__(self, init_val: int = 0, min_val: int = 0, max_val: int = 9):
+    def __init__(self, init_val: int = 0, min_val: int = 0, max_val: int = 9) -> None:
         self._value = init_val
         self._min_val = min_val
         self._max_val = max_val
@@ -89,7 +89,7 @@ print('-------------------------------------------------')
 
 
 class Product:
-    def __init__(self, name: str, price: float):
+    def __init__(self, name: str, price: float) -> None:
         self.name = name
         self.price = price
 
@@ -164,7 +164,7 @@ class MoneyBox:
 
 
 class MoneyBox:
-    def __init__(self, capacity: int):
+    def __init__(self, capacity: int) -> None:
         self._capacity = capacity
         self._coins = 0
 
@@ -198,7 +198,7 @@ print('-------------------------------------------------')
 
 
 class Fraction:
-    def __init__(self, numerator: int, denominator: int):
+    def __init__(self, numerator: int, denominator: int) -> None:
         self._numerator = numerator
         self._denominator = denominator
 
@@ -241,3 +241,109 @@ fractions_sum = fraction1.add(fraction2)
 print('--fractions sum: ')
 fractions_sum.display()
 print('-------------------------------------------------')
+
+'''
+Задача на взаимодействие между классами. Разработать систему «Вступительные экзамены». 
+Абитуриент регистрируется на Факультет, сдает Экзамены. Преподаватель выставляет Оценку. 
+Система подсчитывает средний бал и определяет Абитуриента, зачисленного в учебное заведение.
+'''
+
+
+class Student:
+    def __init__(self, name: str) -> None:
+        self._name = name
+        self._exam_results = {}
+
+    def display(self):
+        print(
+            f'Student.name: {self._name}, Student.results: {self._exam_results}')
+
+    def take_exam(self, subject: str, score: int) -> None:
+        self._exam_results[subject] = score
+
+    def get_average(self) -> int:
+        return sum(self._exam_results.values()) / len(self._exam_results)
+
+
+class Faculty:
+    def __init__(self, name: str, min_score: int) -> None:
+        self._name = name
+        self._min_score = min_score
+
+    def display(self):
+        print(
+            f'Faculty.name: {self._name}, Faculty.min_score: {self._min_score}')
+
+    def is_successfully(self, student: Student) -> bool:
+        return student.get_average() >= self._min_score
+
+
+class Exam:
+    def __init__(self, subject: str) -> None:
+        self._subject = subject
+
+    def display(self):
+        print('Exam.subject: ', self._subject)
+
+
+class Teacher:
+    def grade_exam(self, student: Student, subject: str, score: int) -> None:
+        student.take_exam(subject, score)
+
+
+class StudentAdmissionResult:
+    def get_student_result(self, student: Student, faculty: Faculty):
+        print('-------------------------------------------------')
+        if faculty.is_successfully(student):
+            print(
+                f'The student {student._name} entered the Faculty of {faculty._name}')
+        else:
+            print(
+                f'The student {student._name} didn`t enter the Faculty of {faculty._name}')
+
+
+student_John = Student(name="John")
+student_Helga = Student(name="Helga")
+print('-------------------------------------------------')
+student_John.display()
+student_Helga.display()
+print('-------------------------------------------------')
+
+teacher = Teacher()
+
+comp_science_faculty = Faculty(name="Computer Science", min_score=70)
+physical_faculty = Faculty(name="Physical", min_score=60)
+print('-------------------------------------------------')
+comp_science_faculty.display()
+physical_faculty.display()
+print('-------------------------------------------------')
+
+comp_science_exam = Exam(subject="Computer Science")
+mathematics_exam = Exam(subject="Mathematics")
+physical_exam = Exam(subject="Physical")
+
+print('-------------------------------------------------')
+comp_science_exam.display()
+mathematics_exam.display()
+physical_exam.display()
+print('-------------------------------------------------')
+
+teacher.grade_exam(student=student_John,
+                   subject=comp_science_exam._subject, score=75)
+teacher.grade_exam(student=student_John,
+                   subject=mathematics_exam._subject, score=55)
+teacher.grade_exam(student=student_Helga,
+                   subject=physical_exam._subject, score=85)
+teacher.grade_exam(student=student_Helga,
+                   subject=mathematics_exam._subject, score=95)
+
+print('-------------------------------------------------')
+student_John.display()
+student_Helga.display()
+print('-------------------------------------------------')
+
+admissionResult = StudentAdmissionResult()
+admissionResult.get_student_result(
+    student=student_John, faculty=comp_science_faculty)
+admissionResult.get_student_result(
+    student=student_Helga, faculty=physical_faculty)
