@@ -134,3 +134,5 @@ found_product = new_shop.find_product('Apple')
 print('Found product: ', found_product.name, found_product.price) if found_product else print('Found product: Not found')
 
 new_shop.display_products()
+
+print('-------------------------------------------------')
