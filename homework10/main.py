@@ -1,3 +1,5 @@
+from typing import Dict, Optional, List
+
 '''
 Создать класс с двумя переменными. Добавить функцию вывода на экран и функцию изменения этих переменных. 
 Добавить функцию, которая находит сумму значений этих переменных, 
@@ -34,6 +36,8 @@ variables.display()
 variables.sum()
 variables.max()
 
+print('-------------------------------------------------')
+
 '''
 Описать класс, реализующий десятичный счетчик, который может увеличивать или уменьшать свое значение на единицу в заданном диапазоне. 
 Предусмотреть инициализацию счетчика значениями по умолчанию и произвольными значениями. 
@@ -63,7 +67,7 @@ class DecimalCounter:
     
 counter = DecimalCounter() 
 
-print('-------------------------------------------------')
+
 
 counter.increment()
 print('counter.value: ', counter.value)
@@ -73,3 +77,60 @@ counter2.increment()
 counter2.increment()
 counter2.decrement()
 print('counter2.value: ', counter2.value)
+
+print('-------------------------------------------------')
+
+'''
+Реализуйте класс Shop. Предусмотреть возможность работы с произвольным числом продуктов, 
+поиска продуктов по названию, добавления их в магазин и удаления продуктов из него.
+'''
+class Product:
+    def __init__(self, name: str, price: float):
+        self.name = name
+        self.price = price
+
+class Shop:
+    def __init__(self):
+        self._products: List[Product] = []
+
+    def add_product(self, product: Product) -> None:
+        print('Shop.add_product: ', product.price, product.name)
+        self._products.append(product)
+
+
+    def find_product(self, product_name: str) -> Optional[Product]:
+        for product in self._products:
+            if product.name == product_name:
+                return product
+        return None
+
+    def remove_product(self, product_name: str) -> None:
+        product = self.find_product(product_name)
+        if product:
+            self._products.remove(product)
+
+    def display_products(self) -> None:
+        if not self._products:
+            print("The shop is empty")
+        else:
+            print("Products in the shop: ")
+            for product in self._products:
+                print(f"Name: {product.name}, Price: {product.price}")
+
+new_shop = Shop()
+
+new_product1 = Product('Apple', 1.5)
+new_product2 = Product('Potato', 0.5)
+new_product3 = Product('Pineapple', 4.5)
+
+
+new_shop.add_product(new_product1)
+new_shop.add_product(new_product2)
+new_shop.add_product(new_product3)
+
+new_shop.remove_product('Potato')
+
+found_product = new_shop.find_product('Apple')
+print('Found product: ', found_product.name, found_product.price) if found_product else print('Found product: Not found')
+
+new_shop.display_products()
