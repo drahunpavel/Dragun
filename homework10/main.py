@@ -136,3 +136,47 @@ print('Found product: ', found_product.name, found_product.price) if found_produ
 new_shop.display_products()
 
 print('-------------------------------------------------')
+
+
+'''
+Реализуйте класс MoneyBox, для работы с виртуальной копилкой. Каждая копилка имеет ограниченную вместимость, 
+которая выражается целым числом – количеством монет(capacity -вместимость), которые можно положить в копилку. 
+Класс должен поддерживать информацию о количестве монет в копилке, предоставлять возможность добавлять монеты в копилку и узнавать, 
+можно ли добавить в копилку ещё какое-то количество монет, не превышая ее вместимость. 
+Класс должен иметь следующий вид:
+class MoneyBox: 
+    def__init__(self, capacity) :
+    #конструктор с аргументом- вместимость копилки 
+    def can_add(self,v)
+    #True, если можно добавить v монет, False иначе
+    def add(self,v)
+    #положить v монет в копилку
+
+При создании копилки, число монет в ней равно 0.
+Гарантируется, что метод add(self, v) будет вызываться только если can_add(self, v) – True.
+'''
+
+class MoneyBox:
+    def __init__(self, capacity: int):
+        self._capacity = capacity
+        self._coins = 0
+
+    def can_add(self, coins: int) -> bool:
+        return self._coins + coins <= self._capacity
+
+    def add(self, coins: int) -> None:
+        if self.can_add(coins):
+            self._coins += coins
+            print(f'MoneyBox.add: Added {coins} to MoneyBox. Total coins: {self._coins}')
+        else:
+            print('MoneyBox.add: Cannot add more coins')
+
+money_box = MoneyBox(100)
+
+money_box.add(70)
+print(money_box.can_add(70))
+print(money_box.can_add(20))
+money_box.add(70)
+money_box.add(20)
+
+print('-------------------------------------------------')
