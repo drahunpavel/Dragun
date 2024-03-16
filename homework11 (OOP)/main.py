@@ -31,7 +31,7 @@ class ChessPiece:
 
 
 class Pawn(ChessPiece):
-    def __init__(self, color: Chess_Piece_Color, position: Tuple[int, int]):
+    def __init__(self, color: Chess_Piece_Color, position: Tuple[int, int]) -> None:
         super().__init__(color, position)
 
     def carry_out_attack(self, target_position: Tuple[int, int]) -> bool:
@@ -42,7 +42,7 @@ class Pawn(ChessPiece):
 
 
 class Queen(ChessPiece):
-    def __init__(self, color: Chess_Piece_Color, position: Tuple[int, int]):
+    def __init__(self, color: Chess_Piece_Color, position: Tuple[int, int]) -> None:
         super().__init__(color, position)
 
     def carry_out_attack(self, target_position: Tuple[int, int]) -> bool:
@@ -51,7 +51,7 @@ class Queen(ChessPiece):
 
 
 class Horse(ChessPiece):
-    def __init__(self, color: Chess_Piece_Color, position: Tuple[int, int]):
+    def __init__(self, color: Chess_Piece_Color, position: Tuple[int, int]) -> None:
         super().__init__(color, position)
 
     def carry_out_attack(self, target_position: Tuple[int, int]) -> bool:
@@ -79,3 +79,100 @@ print(queen_1.carry_out_attack(pawn_wh_def.position))  # true
 print(queen_2.carry_out_attack(pawn_wh_def.position))  # false
 
 print('-------------------------------------------------')
+
+'''
+Создать класс «Живое». Определить наследуемые классы – «лиса», «кролик» и «растение». 
+Лиса ест кролика. Кролик ест растения. Растение поглощает солнечный свет. 
+Представитель каждого класса может умереть, если достигнет определенного возраста или для него не будет еды. 
+Напишите виртуальные методы поедания и определения состояния живого существа (живой или нет, в зависимости от достижения предельного возраста и наличия еды (входной параметр)).
+'''
+
+
+class Living:
+    def __init__(self, max_age: int) -> None:
+        self.age: int = 0
+        self.max_age = max_age
+        self.is_alive: bool = True
+
+    def eat(self) -> None:
+        raise NotImplementedError(
+            f"Subclass {self.__class__.__name__} must call the abstract method eat")
+
+    def check_survivability(self) -> bool:
+        self.age += 1
+        if self.age >= self.max_age:
+            self.is_alive = False
+            print(f"{self.__class__.__name__} died of passion")
+            return False
+        else:
+            print(f"{self.__class__.__name__} is alive")
+            return True
+
+
+class Fox(Living):
+    def __init__(self, max_age: int) -> None:
+        super().__init__(max_age)
+
+    def eat(self) -> None:
+        print("Fox eats Rabbit")
+
+    def check_survivability(self, have_food: bool) -> None:
+        if super().check_survivability() and not have_food:
+            self.is_alive = False
+            print(f"{self.__class__.__name__} died of starvation")
+            return False
+
+        return True
+
+
+class Rabbit(Living):
+    def __init__(self, max_age: int) -> None:
+        super().__init__(max_age)
+
+    def eat(self) -> None:
+        print("Rabbit eats Plant")
+
+    def check_survivability(self, have_food: bool) -> None:
+        if super().check_survivability() and not have_food:
+            self.is_alive = False
+            print(f"{self.__class__.__name__} died of starvation")
+            return False
+
+        return True
+
+
+class Plant(Living):
+    def __init__(self, max_age: int) -> None:
+        super().__init__(max_age)
+
+    def eat(self) -> None:
+        print("Plant absorbs sunlight")
+
+    def check_survivability(self, have_food: bool) -> bool:
+        if super().check_survivability() and not have_food:
+            self.is_alive = False
+            print(f"{self.__class__.__name__} died of starvation")
+            return False
+
+        return True
+
+
+plant = Plant(max_age=500)
+rabbit = Rabbit(max_age=10)
+fox = Fox(max_age=15)
+
+
+# Предпогалаем, что идут годы...
+years: int = 0
+
+plant.eat()
+rabbit.eat()
+fox.eat()
+print('------')
+while years < 15:
+    plant.check_survivability(have_food=True)
+    rabbit.check_survivability(have_food=plant.is_alive)
+    fox.check_survivability(have_food=rabbit.is_alive)
+
+    print('------')
+    years += 1
