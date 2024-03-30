@@ -1,0 +1,132 @@
+-- CREATE TABLE IF NOT EXISTS actors (
+-- 	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+-- 	name TEXT NOT NULL,
+-- 	surname TEXT NOT NULL,
+-- 	age INTEGER NOT NULL CHECK (age >= 5 AND age <= 99),
+-- 	movie_name TEXT,
+-- 	budget INTEGER DEFAULT 10000000,
+-- 	manager TEXT,
+-- 	release_year INTEGER,
+-- 	sex TEXT NOT NULL CHECK (sex IN ('male', 'female'))
+-- );
+
+
+-- INSERT INTO actors (name, surname, age, movie_name, budget, manager, release_year, sex) 
+-- VALUES 
+--     ('John', 'Doe' , 50, 'The Matrix', 15000000, 'Michael Smith', 1999, 'male'),
+--     ('William', 'Smith', 75, 'Pulp Fiction', 12000000, 'Emily Johnson', 1994, 'male'),
+--     ('Alice', 'Johnson', 67, 'Forrest Gump', 10000000, 'David Brown', 1994, 'female'),
+--     ('Bob', 'Brown', 40, 'The Dark Knight', 20000000, 'Sarah Wilson', 2008, 'male'),
+--     ('Michael', 'Williams', 79, 'Inception', 13000000, 'James Martinez', 2010, 'male'),
+--     ('Emily', 'Jones', 88, 'The Shawshank Redemption', 11000000, 'Emma Taylor', 1994, 'female'),
+--     ('David', 'Martinez', 58, 'Fight Club', 18000000, 'Matthew Harris', 1999, 'male'),
+--     ('Sarah', 'Taylor', 45, 'The Lord of the Rings: The Return of the King', 14000000, 'Olivia Thomas', 2003, 'female'),
+--     ('James', 'Wilson', 69, 'Forrest Gump', 16000000, 'John Anderson', 1994, 'male'),
+--     ('Emma', 'Anderson', 61, 'Inception', 17000000, 'Jane Wilson', 2010, 'female'),
+--     ('Matthew', 'Thomas', 48, 'The Dark Knight', 19000000, 'Alice Harris', 2008, 'male'),
+--     ('Olivia', 'Harris', 66, 'The Matrix', 12000000, 'Bob Johnson', 1999, 'female'),
+--     ('Sophia', 'Garcia', 49, 'Pulp Fiction', 16000000, 'William Davis', 1994, 'female'),
+--     ('Alexander', 'Rodriguez', 55, 'Inception', 17000000, 'Isabella Martinez', 2010, 'male'),
+--     ('David', 'Martinez', 58, 'The Dark Knight', 18000000, 'Alexander Rodriguez', 2008, 'male'),
+--     ('Bob', 'Brown', 40, 'The Shawshank Redemption', 19000000, 'Sophia Smith', 1994, 'male'),
+--     ('William', 'Smith', 75, 'Forrest Gump', 20000000, 'Michael Brown', 1994, 'male'),
+--     ('Emma', 'Anderson', 61, 'Pulp Fiction', 21000000, 'Emily Wilson', 1994, 'female'),
+--     ('Emily', 'Wilson', 64, 'The Matrix', 22000000, 'Matthew Anderson', 1999, 'female'),
+--     ('Daniel', 'Taylor', 31, 'The Dark Knight', 23000000, 'Emma Johnson', 2008, 'male'),
+--     ('Alice', 'Johnson', 67, 'Fight Club', 24000000, 'Daniel Taylor', 1999, 'female'),
+--     ('Matthew', 'Thomas', 48, 'Inception', 25000000, 'Olivia Martinez', 2010, 'male'),
+--     ('David', 'Martinez', 58, 'The Shawshank Redemption', 26000000, 'Alexander Thomas', 1994, 'male'),
+--     ('Michael', 'Williams', 79, 'Forrest Gump', 27000000, 'Sophia Brown', 1994, 'male'),
+--     ('Bob', 'Brown', 40, 'Pulp Fiction', 28000000, 'William Williams', 1994, 'male'),
+--     ('Daniel', 'Jones', 60, 'The Matrix', 29000000, 'Emily Davis', 1999, 'male'),
+--     ('Alexander', 'Wilson', 37, 'The Dark Knight', 31000000, 'Emma Smith', 2008, 'male'),
+--     ('William', 'Smith', 75, 'Inception', 32000000, 'Alexander Wilson', 2010, 'male'),
+--     ('Alice', 'Johnson', 67, 'The Shawshank Redemption', 33000000, 'Olivia Garcia', 1994, 'female'),
+--     ('Sophia', 'Garcia', 49, 'Forrest Gump', 34000000, 'Matthew Johnson', 1994, 'female'),
+--     ('Alexander', 'Rodriguez', 55, 'Pulp Fiction', 35000000, 'Sophia Anderson', 1994, 'male'),
+--     ('Emma', 'Anderson', 61, 'The Matrix', 36000000, 'William Rodriguez', 1999, 'female'),
+--     ('Bob', 'Brown', 40, 'Fight Club', 37000000, 'Emily Taylor', 1999, 'male'),
+--     ('Emily', 'Taylor', 57, 'The Dark Knight', 38000000, 'Daniel Brown', 2008, 'female'),
+--     ('Alexander', 'Davis', 38, 'Inception', 39000000, 'Emma Martinez', 2010, 'male'),
+--     ('Matthew', 'Jones', 49, 'Forrest Gump', 41000000, 'Olivia Wilson', 1994, 'male'),
+--     ('Olivia', 'Wilson', 44, 'Pulp Fiction', 42000000, 'Matthew Jones', 1994, 'female'),
+--     ('William', 'Smith', 75, 'The Matrix', 43000000, 'Sophia Johnson', 1999, 'male'),
+--     ('Daniel', 'Taylor', 57, 'The Dark Knight', 45000000, 'Emily Brown', 2008, 'male'),
+--     ('Bob', 'Brown', 40, 'Inception', 46000000, 'Daniel Taylor', 2010, 'male'),
+--     ('Emma', 'Anderson', 61, 'The Shawshank Redemption', 47000000, 'Emma Garcia', 1994, 'female');
+
+
+-- 
+-- ALTER TABLE actors ADD COLUMN fee REAL
+
+-- UPDATE actors
+-- SET fee = ABS(RANDOM() % 1000000)
+
+-- UPDATE actors
+-- SET fee = NULL;
+
+
+-- ALTER TABLE actors
+-- RENAME COLUMN fee TO fee_actors;
+
+
+-- ALTER TABLE actors ADD COLUMN city TEXT;
+-- UPDATE actors
+-- SET city = "Random city"
+
+--Вывести всех актёров которые снимались в период с 1990 по 2000 год. Актёры должны быть выведены только 1 раз.
+-- SELECT DISTINCT name, surname
+-- FROM actors
+-- WHERE release_year BETWEEN 1990 AND 2000;
+
+-- Вывод организовать в порядке возрастания фамилий. Каким образом, если фамилий несколько в одном фильме? 
+-- Или таблица формата назв фильма - имя актера?
+-- SELECT movie_name AS custom_movie_name
+-- FROM actors
+-- GROUP BY movie_name
+-- HAVING count(surname) >= 2
+-- ORDER BY movie_name ASC
+-- ORDER BY surname ASC 
+
+-- Вывести количество актёров мужского пола, которые есть в таблице которые старше 55 лет.
+-- SELECT COUNT(*) AS result
+-- FROM actors
+-- WHERE sex = 'male' AND age > 55;
+
+-- Вывести всех актёров которые приняли участие в 2-х и более фильмах, которые есть а бд и которые имеют на своём счету 10000000$.
+-- SELECT name, surname, fee_actors AS total_fee
+-- FROM actors
+-- GROUP BY surname
+-- HAVING COUNT(*) >= 2 AND SUM(fee_actors) >= 100000;
+
+
+-- Вывести общую сумму всех гонораров актёров в фильмах снятых в период с 1995 по 2005 год.
+-- SELECT sum(fee_actors) AS total_fee
+-- from actors
+-- WHERE release_year BETWEEN 1995 AND 2005;
+
+
+-- Вывести фильмы и имена и фамилии актёров, которым на момент выпуска фильма в прокат было меньше 35 лет.
+-- SELECT movie_name, name, surname
+-- FROM actors
+-- WHERE (release_year - (2024 - age)) < 35
+
+
+--Вывести все фильмы название которых состоит из 2 слов. Использовать регулярные выражения.
+-- SELECT DISTINCT movie_name
+-- FROM actors
+-- WHERE movie_name REGEXP '^[a-zA-Z]+ [a-zA-Z]+$';
+
+
+--Вывести  фильмы и общие выплаты актёрам. В порядке убывания общей суммы гонораров. Вывести первые 5 фильмов.
+-- SELECT movie_name, SUM(fee_actors) AS total_fee
+-- FROM actors
+-- GROUP BY movie_name
+-- ORDER BY total_fee DESC LIMIT 5;
+
+
+-- Вывести  фильм в котором приняло участие большее число актёров из вашей бд.
+-- SELECT movie_name, COUNT(surname) as actor_count
+-- FROM actors
+-- GROUP BY movie_name
+-- ORDER BY COUNT(surname) DESC LIMIT 1;
