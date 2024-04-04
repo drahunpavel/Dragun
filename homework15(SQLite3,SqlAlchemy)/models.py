@@ -3,6 +3,8 @@ from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+
+
 '''
 Создать питоновский файл models.py . Создать таблицу Users определив 
 поля( id: первичный ключ, first_name,last_name:строки длинной в 50 символов, age: целое число). 
@@ -24,7 +26,7 @@ class Users(Base):
 class UsersHandler():
     def __init__(self) -> None:
         self.engine = create_engine(
-            'sqlite:///homework15 (SQLite3,SqlAlchemy)/db/SQLite/example.db')
+            'sqlite:///homework15(SQLite3,SqlAlchemy)/db/SQLite/example.db')
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
 
